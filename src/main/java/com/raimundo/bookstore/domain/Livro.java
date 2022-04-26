@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Livro implements Serializable{
 
@@ -24,10 +26,15 @@ public class Livro implements Serializable{
 	private String nome_autor;
 	private String texto;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 
+	public Livro() {
+		super();
+	}
+	
 	public Livro(Integer id, String titulo, String nome_autor, String texto, Categoria categoria) {
 		super();
 		this.id = id;

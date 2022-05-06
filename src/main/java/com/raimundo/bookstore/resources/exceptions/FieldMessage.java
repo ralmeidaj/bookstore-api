@@ -13,7 +13,6 @@ public class FieldMessage implements Serializable{
 	private  String messagem;
 	public FieldMessage() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public FieldMessage(String fieldName, String messagem) {
 		super();

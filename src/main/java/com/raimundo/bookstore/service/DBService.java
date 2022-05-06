@@ -22,6 +22,12 @@ public class DBService {
 		Categoria cat1 = new Categoria(null, "Informática", "Livros de TI");
 		Categoria cat2 = new Categoria(null, "Matemática", "Livros de Matemática");
 		Categoria cat3 = new Categoria(null, "Português", "Livros de Português");
+		Categoria cat4 = new Categoria(null, "Categoria 4", "Livros de Categoria 4");
+		Categoria cat5 = new Categoria(null, "Categoria 5", "Livros de Categoria 5");
+		Categoria cat6 = new Categoria(null, "Categoria 6", "Livros de Categoria 6");
+		Categoria cat7 = new Categoria(null, "Categoria 7", "Livros de Categoria 7");
+		Categoria cat8 = new Categoria(null, "Categoria 8", "Livros de Categoria 8");
+		Categoria cat9 = new Categoria(null, "Categoria 9", "Livros de Categoria 9");
 		
 		Livro l1 = new Livro(null, "Clean Code", "Robert Martin", "Lorem ipsum", cat1);
 		Livro l2 = new Livro(null, "Padrão de Projetos", "Robert Martin", "Lorem ipsum", cat1);

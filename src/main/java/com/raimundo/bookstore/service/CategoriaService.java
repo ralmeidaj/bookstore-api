@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +27,12 @@ public class CategoriaService {
 				"Objeto não encontrado! Id:" + id + " Tipo:" + Categoria.class.getName()));
 	}
 	
-	public List<Categoria> findAll(){
-		return repository.findAll();
+	public Page<Categoria> findAll(Pageable pageable){
+		return repository.findAll(pageable);
+	}
+	
+	public Long findAllCount(){
+		return repository.count();
 	}
 	
 	public Categoria create(Categoria obj) {

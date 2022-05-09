@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -38,10 +42,21 @@ public class CategoriaResource {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<CategoriaDTO>> findAll(){
-		List<Categoria> list = service.findAll();
+	public ResponseEntity<List<CategoriaDTO>> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size){
+		//System.out.println("Size: " + size);
+		//System.out.println("page: " + page);
+		Pageable paging = PageRequest.of(page, size);
+		Page<Categoria> list = service.findAll(paging);
 		List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
+	}
+	
+	@GetMapping("/count")
+	public ResponseEntity<Long> findAllCount(){
+		//System.out.println("Size: " + size);
+		//System.out.println("page: " + page);
+		
+		return ResponseEntity.ok().body(service.findAllCount());
 	}
 	@PostMapping
 	public ResponseEntity<Categoria> create(@Valid @RequestBody Categoria obj){

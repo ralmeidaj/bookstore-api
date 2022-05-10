@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,9 +44,18 @@ public class LivroResource {
 				
 	}
 	
+	
+	@GetMapping(value = "/allcount/{id}")
+	public ResponseEntity<Long> findAllCount(@PathVariable Integer id){
+		
+		return ResponseEntity.ok().body(service.findAllCount(1));
+	}
+	
 	@GetMapping
-	public ResponseEntity<List<LivroDTO>> findAll(@RequestParam(value = "categoria", defaultValue = "0" ) Integer id_cat){
-		List<Livro> list = service.findAll(id_cat);
+	public ResponseEntity<List<LivroDTO>> findAll(@RequestParam(value = "categoria", defaultValue = "0" ) Integer id_cat, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "4") int size){
+		Pageable paging = PageRequest.of(page, size);
+		
+		Page<Livro> list = service.findAll(paging, id_cat);
 		List<LivroDTO> listDTO = list.stream().map(obj -> new LivroDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}

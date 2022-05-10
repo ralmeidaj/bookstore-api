@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.raimundo.bookstore.domain.Categoria;
@@ -30,10 +32,15 @@ public class LivroService {
 	}
 
 
-	public List<Livro> findAll(Integer id_cat) {
+	public Long findAllCount(Integer id_cat){
+		return repository.findByIdCategoriaCount(id_cat); 
+
+	}
+	
+	public Page<Livro> findAll(Pageable pageable, Integer id_cat) {
 		categoriaService.findById(id_cat);
 		
-		return repository.findByIdCategoria(id_cat);
+		return repository.findByIdCategoria(id_cat, pageable);
 	}
 
 
